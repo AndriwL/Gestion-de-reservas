@@ -165,29 +165,30 @@ export function EntityCrudPage({
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="font-display text-2xl font-semibold text-ink-900">{title}</h1>
-          <p className="mt-1 text-sm text-ink-400">{description}</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-cyan-700">Administración</p>
+          <h1 className="mt-1 font-display text-2xl font-bold text-slate-800">{title}</h1>
+          <p className="mt-1 text-sm text-slate-500">{description}</p>
         </div>
         <Button onClick={openCreate}>
           <Plus size={16} /> {newLabel}
         </Button>
       </div>
 
-      <div className="flex items-center gap-2 rounded-lg border border-ink-100 bg-white px-3 py-2 sm:max-w-xs">
-        <Search size={16} className="text-ink-300" />
+      <div className="flex items-center gap-2 rounded-xl border border-cyan-100 bg-white px-3 py-2.5 shadow-sm sm:max-w-xs">
+        <Search size={16} className="text-cyan-600" />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={searchPlaceholder}
-          className="w-full bg-transparent text-sm outline-none placeholder:text-ink-300"
+          className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
         />
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card">
+      <div className="overflow-hidden rounded-2xl border border-cyan-100/80 bg-white shadow-[0_12px_35px_rgba(8,145,178,0.10)]">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="border-b border-ink-50 bg-ink-50/50 text-xs font-semibold uppercase tracking-wide text-ink-400">
+              <tr className="border-b border-cyan-100 bg-gradient-to-r from-cyan-50 to-blue-50 text-xs font-bold uppercase tracking-wide text-cyan-800">
                 {tableFields.map((f) => (
                   <th key={f.name} className="whitespace-nowrap px-4 py-3">
                     {f.label}
@@ -226,7 +227,7 @@ export function EntityCrudPage({
               {!loading &&
                 !loadError &&
                 filteredRows.map((row) => (
-                  <tr key={row[primaryKey]} className="border-b border-ink-50 last:border-0 hover:bg-ink-50/40">
+                  <tr key={row[primaryKey]} className="border-b border-slate-100 last:border-0 transition-colors hover:bg-cyan-50/60">
                     {tableFields.map((f) => (
                       <td key={f.name} className="whitespace-nowrap px-4 py-3 text-ink-700">
                         {renderCellValue(f, row)}
@@ -238,7 +239,7 @@ export function EntityCrudPage({
                         <button
                           onClick={() => openEdit(row)}
                           aria-label={`Editar ${row[primaryKey]}`}
-                          className="rounded-md p-1.5 text-ink-400 hover:bg-ink-50 hover:text-ink-700"
+                          className="rounded-md p-1.5 text-cyan-600 hover:bg-cyan-100 hover:text-cyan-800"
                         >
                           <Pencil size={15} />
                         </button>

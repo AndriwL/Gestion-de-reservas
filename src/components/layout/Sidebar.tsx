@@ -47,16 +47,16 @@ const navGroups = [
 
 export function Sidebar() {
   return (
-    <aside className=" w-56 shrink-0 flex-col bg-ink-900 text-ink-100 lg:flex">
-      <div className="flex flex-col items-center justify-center gap-2.5 px-6 py-3">
+    <aside className="hidden w-60 shrink-0 flex-col border-r border-cyan-950/15 bg-gradient-to-b from-[#063948] via-[#075a6b] to-[#123a69] text-ink-100 shadow-xl shadow-cyan-950/15 lg:flex">
+      <div className="flex min-h-28 flex-col items-center justify-center gap-2.5 border-b border-white/10 px-6 py-3">
         <img src="/images/logo.png" alt="Logo de la empresa" className="h-20 w-auto object-contain" />
 
       </div>
 
-      <nav className="flex-1 space-y-6 overflow-y-auto px-3 pb-6">
+      <nav className="flex-1 space-y-6 overflow-y-auto px-3 py-6">
         {navGroups.map((group) => (
           <div key={group.label}>
-            <p className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-widest text-ink-200">
+            <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-cyan-100/60">
               {group.label}
             </p>
             <div className="space-y-0.5">
@@ -66,16 +66,16 @@ export function Sidebar() {
                   to={item.to}
                   end={'end' in item ? item.end : false}
                   className={({ isActive }) =>
-                    `group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
+                    `group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all ${
                       isActive
-                        ? 'bg-ink-800 text-white'
-                        : 'text-ink-300 hover:bg-ink-800/60 hover:text-white'
+                        ? 'bg-gradient-to-r from-cyan-300 to-blue-500 text-slate-950 shadow-lg shadow-cyan-950/30'
+                        : 'text-cyan-50/75 hover:bg-white/10 hover:text-white'
                     }`
                   }
                 >
                   {({ isActive }) => (
                     <>
-                      <item.icon size={16} className={isActive ? 'text-amber' : 'text-ink-500 group-hover:text-ink-300'} />
+                      <item.icon size={16} className={isActive ? 'text-slate-900' : 'text-cyan-200/70 group-hover:text-cyan-100'} />
                       {item.label}
                     </>
                   )}
