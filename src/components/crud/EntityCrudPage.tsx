@@ -15,6 +15,8 @@ interface EntityCrudPageProps {
   title: string
   description: string
   tableName: string
+  /** Nombre de la clave primaria de la tabla. */
+  primaryKey?: string
   fields: FieldConfig[]
   selectQuery?: string
   orderBy?: { column: string; ascending?: boolean }
@@ -29,6 +31,7 @@ export function EntityCrudPage({
   title,
   description,
   tableName,
+  primaryKey = 'id',
   fields,
   selectQuery = '*',
   orderBy,
@@ -116,7 +119,7 @@ export function EntityCrudPage({
     const finalPayload = onBeforeSave ? onBeforeSave(payload, Boolean(editing)) : payload
 
     const { error } = editing
-      ? await supabase.from(tableName).update(finalPayload).eq('id', editing.id)
+      ? await supabase.from(tableName).update(finalPayload).eq(primaryKey, editing[primaryKey])
       : await supabase.from(tableName).insert(finalPayload)
 
     setSaving(false)
@@ -132,7 +135,7 @@ export function EntityCrudPage({
   async function handleDelete() {
     if (!deleteTarget) return
     setDeleting(true)
-    const { error } = await supabase.from(tableName).delete().eq('id', deleteTarget.id)
+    const { error } = await supabase.from(tableName).delete().eq(primaryKey, deleteTarget[primaryKey])
     setDeleting(false)
     if (error) {
       setLoadError(error.message)
@@ -223,7 +226,7 @@ export function EntityCrudPage({
               {!loading &&
                 !loadError &&
                 filteredRows.map((row) => (
-                  <tr key={row.id} className="border-b border-ink-50 last:border-0 hover:bg-ink-50/40">
+                  <tr key={row[primaryKey]} className="border-b border-ink-50 last:border-0 hover:bg-ink-50/40">
                     {tableFields.map((f) => (
                       <td key={f.name} className="whitespace-nowrap px-4 py-3 text-ink-700">
                         {renderCellValue(f, row)}
@@ -234,14 +237,14 @@ export function EntityCrudPage({
                         {extraRowActions?.(row, loadRows)}
                         <button
                           onClick={() => openEdit(row)}
-                          aria-label={`Editar ${row.id}`}
+                          aria-label={`Editar ${row[primaryKey]}`}
                           className="rounded-md p-1.5 text-ink-400 hover:bg-ink-50 hover:text-ink-700"
                         >
                           <Pencil size={15} />
                         </button>
                         <button
                           onClick={() => setDeleteTarget(row)}
-                          aria-label={`Eliminar ${row.id}`}
+                          aria-label={`Eliminar ${row[primaryKey]}`}
                           className="rounded-md p-1.5 text-ink-400 hover:bg-coral-light hover:text-coral"
                         >
                           <Trash2 size={15} />

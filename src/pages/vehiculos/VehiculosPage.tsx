@@ -3,6 +3,7 @@ import { FieldConfig } from '../../components/crud/types'
 
 const fields: FieldConfig[] = [
   { name: 'placa', label: 'Placa', type: 'text', required: true },
+  { name: 'marca', label: 'Marca', type: 'text', required: true },
   { name: 'modelo', label: 'Modelo', type: 'text', required: true },
   { name: 'tipo', label: 'Tipo', type: 'text', required: true, placeholder: 'Van, bus, auto…' },
   { name: 'capacidad', label: 'Capacidad', type: 'number', required: true, hint: 'N° de pasajeros' },
@@ -27,7 +28,8 @@ export default function VehiculosPage() {
     <EntityCrudPage
       title="Vehículos"
       description="Administración completa de la flota: disponibilidad, capacidad y kilometraje."
-      tableName="vehiculos"
+      tableName="vehiculo"
+      primaryKey="id_vehiculo"
       fields={fields}
       orderBy={{ column: 'created_at', ascending: false }}
       searchPlaceholder="Buscar por placa o modelo…"

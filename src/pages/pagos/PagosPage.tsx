@@ -6,16 +6,17 @@ import { supabase } from '../../lib/supabaseClient'
 
 const fields: FieldConfig[] = [
   {
-    name: 'reserva_id',
+    name: 'id_reserva',
     label: 'Reserva',
     type: 'relation',
     required: true,
-    relation: { table: 'reservas', labelFields: ['punto_recojo', 'fecha'] },
+    relation: { table: 'reserva', valueField: 'id_reserva', labelFields: ['punto_recojo', 'fecha_viaje'] },
   },
-  { name: 'fecha', label: 'Fecha', type: 'date', required: true },
+  { name: 'fecha_pago', label: 'Fecha', type: 'date', required: true },
   { name: 'monto', label: 'Monto', type: 'number', required: true, step: '0.01' },
-  { name: 'metodo', label: 'Método de pago', type: 'text', required: true, placeholder: 'Efectivo, tarjeta, transferencia…' },
-  { name: 'banco', label: 'Banco', type: 'text' },
+  { name: 'metodo_pago', label: 'Método de pago', type: 'text', required: true, placeholder: 'Efectivo, tarjeta, transferencia…' },
+  { name: 'banco_origen', label: 'Banco', type: 'text' },
+  { name: 'nro_operacion', label: 'N° de operación', type: 'text' },
   {
     name: 'estado',
     label: 'Estado',
@@ -38,11 +39,11 @@ function GenerarComprobanteButton({ row, refresh }: { row: Record<string, any>; 
 
   async function handleClick() {
     setLoading(true)
-    const numero = `CMP-${new Date(row.fecha).getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`
-    const { error } = await supabase.from('comprobantes').insert({
-      pago_id: row.id,
+    const numero = `CMP-${new Date(row.fecha_pago).getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`
+    const { error } = await supabase.from('comprobante').insert({
+      id_pago: row.id_pago,
       monto_total: row.monto,
-      numero,
+      nro_comprobante: numero,
       tipo: 'boleta',
       fecha_emision: new Date().toISOString().slice(0, 10),
     })
@@ -68,11 +69,12 @@ export default function PagosPage() {
     <EntityCrudPage
       title="Pagos"
       description="Registra método, banco, fecha y estado del pago. Genera el comprobante correspondiente con un clic."
-      tableName="pagos"
+      tableName="pago"
+      primaryKey="id_pago"
       fields={fields}
       orderBy={{ column: 'created_at', ascending: false }}
       searchPlaceholder="Buscar por método…"
-      searchableFields={['metodo', 'banco']}
+      searchableFields={['metodo_pago', 'banco_origen']}
       newLabel="Nuevo pago"
       extraRowActions={(row, refresh) => <GenerarComprobanteButton row={row} refresh={refresh} />}
     />

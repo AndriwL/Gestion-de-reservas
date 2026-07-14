@@ -6,11 +6,11 @@ import { supabase } from '../../lib/supabaseClient'
 
 const fields: FieldConfig[] = [
   {
-    name: 'cliente_id',
+    name: 'id_cliente',
     label: 'Cliente',
     type: 'relation',
     required: true,
-    relation: { table: 'clientes', labelFields: ['nombres', 'apellidos'] },
+    relation: { table: 'cliente', valueField: 'id_cliente', labelFields: ['nombres_razonsocial', 'apellidos'] },
   },
   { name: 'costo_estimado', label: 'Costo estimado', type: 'number', required: true, step: '0.01' },
   { name: 'fecha_cotizacion', label: 'Fecha', type: 'date', required: true },
@@ -38,14 +38,14 @@ function ConvertirEnReservaButton({ row, refresh }: { row: Record<string, any>; 
 
   async function handleClick() {
     setLoading(true)
-    const { error } = await supabase.from('reservas').insert({
-      cliente_id: row.cliente_id,
-      cotizacion_id: row.id,
+    const { error } = await supabase.from('reserva').insert({
+      id_cliente: row.id_cliente,
+      id_cotizacion: row.id_cotizacion,
       cantidad_pasajeros: 1,
       costo_total: row.costo_estimado,
       saldo_pendiente: row.costo_estimado,
       estado: 'pendiente',
-      fecha: row.fecha_cotizacion,
+      fecha_viaje: row.fecha_cotizacion,
       hora_salida: '00:00',
       punto_recojo: 'Por definir',
     })
@@ -71,7 +71,8 @@ export default function CotizacionesPage() {
     <EntityCrudPage
       title="Cotizaciones"
       description="Genera una propuesta económica antes de confirmar la reserva. Al aprobarla, puede convertirse en reserva con un clic."
-      tableName="cotizaciones"
+      tableName="cotizacion"
+      primaryKey="id_cotizacion"
       fields={fields}
       orderBy={{ column: 'created_at', ascending: false }}
       searchPlaceholder="Buscar…"

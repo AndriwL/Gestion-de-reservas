@@ -13,20 +13,20 @@ interface StatCardData {
 
 export default function Dashboard() {
   const [counts, setCounts] = useState<Record<string, number | null>>({
-    clientes: null,
-    reservas: null,
-    cotizaciones: null,
-    incidencias: null,
-    vehiculos: null,
-    pagos: null,
-    conductores: null,
+    cliente: null,
+    reserva: null,
+    cotizacion: null,
+    incidencia: null,
+    vehiculo: null,
+    pago: null,
+    conductor: null,
   })
 
   useEffect(() => {
     async function loadCounts() {
-      const tables = ['clientes', 'reservas', 'cotizaciones', 'incidencias', 'vehiculos', 'pagos', 'conductores' ]
+      const tables = ['cliente', 'reserva', 'cotizacion', 'incidencia', 'vehiculo', 'pago', 'conductor']
       const results = await Promise.all(
-        tables.map((t) => supabase.from(t).select('id', { count: 'exact', head: true })),
+        tables.map((t) => supabase.from(t).select('*', { count: 'exact', head: true })),
       )
       const next: Record<string, number | null> = {}
       tables.forEach((t, i) => {
@@ -38,13 +38,13 @@ export default function Dashboard() {
   }, [])
 
   const cards: StatCardData[] = [
-    { label: 'Clientes registrados', value: counts.clientes, icon: Users, to: '/dashboard/clientes', hint: 'Total en el sistema' },
-    { label: 'Reservas', value: counts.reservas, icon: CalendarCheck, to: '/dashboard/reservas', hint: 'Todas las reservas' },
-    { label: 'Cotizaciones', value: counts.cotizaciones, icon: FileText, to: '/dashboard/cotizaciones', hint: 'Pendientes y aprobadas' },
-    { label: 'Incidencias', value: counts.incidencias, icon: AlertTriangle, to: '/dashboard/incidencias', hint: 'Registradas en servicios' },
-    { label: 'Vehiculos', value: counts.vehiculos, icon: CarIcon, to: '/dashboard/vehiculos', hint: 'Registrados' },
-    { label: 'Conductores', value: counts.conductores, icon: User, to: '/dashboard/conductores', hint: 'Registrados' },
-    { label: 'Pagos', value: counts.pagos, icon: Coins, to: '/dashboard/pagos', hint: 'Registrados' },
+    { label: 'Clientes registrados', value: counts.cliente, icon: Users, to: '/dashboard/clientes', hint: 'Total en el sistema' },
+    { label: 'Reservas', value: counts.reserva, icon: CalendarCheck, to: '/dashboard/reservas', hint: 'Todas las reservas' },
+    { label: 'Cotizaciones', value: counts.cotizacion, icon: FileText, to: '/dashboard/cotizaciones', hint: 'Pendientes y aprobadas' },
+    { label: 'Incidencias', value: counts.incidencia, icon: AlertTriangle, to: '/dashboard/incidencias', hint: 'Registradas en servicios' },
+    { label: 'Vehículos', value: counts.vehiculo, icon: CarIcon, to: '/dashboard/vehiculos', hint: 'Registrados' },
+    { label: 'Conductores', value: counts.conductor, icon: User, to: '/dashboard/conductores', hint: 'Registrados' },
+    { label: 'Pagos', value: counts.pago, icon: Coins, to: '/dashboard/pagos', hint: 'Registrados' },
   ]
 
   return (

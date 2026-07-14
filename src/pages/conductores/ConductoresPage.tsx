@@ -6,7 +6,8 @@ const fields: FieldConfig[] = [
   { name: 'apellidos', label: 'Apellidos', type: 'text', required: true },
   { name: 'dni', label: 'DNI', type: 'text', required: true },
   { name: 'telefono', label: 'Teléfono', type: 'tel', required: true },
-  { name: 'licencia', label: 'N° de licencia', type: 'text', required: true, hint: 'Se valida vigencia antes de asignar un servicio.' },
+  { name: 'nrolicencia', label: 'N° de licencia', type: 'text', required: true, hint: 'Se valida vigencia antes de asignar un servicio.' },
+  { name: 'tipolicencia', label: 'Tipo de licencia', type: 'text' },
   {
     name: 'estado',
     label: 'Estado',
@@ -26,11 +27,12 @@ export default function ConductoresPage() {
     <EntityCrudPage
       title="Conductores"
       description="Registro y control de choferes: estado operativo y vigencia de licencia."
-      tableName="conductores"
+      tableName="conductor"
+      primaryKey="id_conductor"
       fields={fields}
       orderBy={{ column: 'created_at', ascending: false }}
       searchPlaceholder="Buscar por nombre, DNI o licencia…"
-      searchableFields={['nombres', 'apellidos', 'dni', 'licencia']}
+      searchableFields={['nombres', 'apellidos', 'dni', 'nrolicencia']}
       newLabel="Nuevo conductor"
     />
   )

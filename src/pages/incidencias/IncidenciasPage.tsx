@@ -3,13 +3,13 @@ import { FieldConfig } from '../../components/crud/types'
 
 const fields: FieldConfig[] = [
   {
-    name: 'servicio_id',
+    name: 'id_servicio',
     label: 'Servicio',
     type: 'relation',
     required: true,
-    relation: { table: 'servicios', labelFields: ['fecha_ejecucion'] },
+    relation: { table: 'servicio', valueField: 'id_servicio', labelFields: ['fecha_ejecucion'] },
   },
-  { name: 'tipo', label: 'Tipo', type: 'text', required: true, placeholder: 'Retraso, avería, accidente…' },
+  { name: 'tipo_incidencia', label: 'Tipo', type: 'text', required: true, placeholder: 'Retraso, avería, accidente…' },
   { name: 'fecha', label: 'Fecha', type: 'date', required: true },
   { name: 'hora', label: 'Hora', type: 'time', required: true },
   {
@@ -32,11 +32,12 @@ export default function IncidenciasPage() {
     <EntityCrudPage
       title="Incidencias"
       description="Registra cualquier evento ocurrido durante un servicio y da seguimiento hasta su resolución."
-      tableName="incidencias"
+      tableName="incidencia"
+      primaryKey="id_incidencia"
       fields={fields}
       orderBy={{ column: 'created_at', ascending: false }}
       searchPlaceholder="Buscar por tipo…"
-      searchableFields={['tipo']}
+      searchableFields={['tipo_incidencia']}
       newLabel="Nueva incidencia"
     />
   )

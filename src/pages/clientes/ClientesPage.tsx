@@ -2,9 +2,9 @@ import { EntityCrudPage } from '../../components/crud/EntityCrudPage'
 import { FieldConfig } from '../../components/crud/types'
 
 const fields: FieldConfig[] = [
-  { name: 'nombres', label: 'Nombres', type: 'text', required: true },
+  { name: 'nombres_razonsocial', label: 'Nombres o razón social', type: 'text', required: true },
   { name: 'apellidos', label: 'Apellidos', type: 'text', required: true },
-  { name: 'dni', label: 'DNI', type: 'text', required: true, hint: 'Documento de identidad, se valida que sea único.' },
+  { name: 'dni_ruc', label: 'DNI / RUC', type: 'text', required: true, hint: 'Documento de identidad o RUC, se valida que sea único.' },
   { name: 'correo', label: 'Correo', type: 'email', required: true },
   { name: 'telefono', label: 'Teléfono', type: 'tel', required: true },
   {
@@ -26,11 +26,12 @@ export default function ClientesPage() {
     <EntityCrudPage
       title="Clientes"
       description="Registro, edición y consulta de las personas y empresas que solicitan el servicio."
-      tableName="clientes"
+      tableName="cliente"
+      primaryKey="id_cliente"
       fields={fields}
       orderBy={{ column: 'created_at', ascending: false }}
       searchPlaceholder="Buscar por nombre, DNI o correo…"
-      searchableFields={['nombres', 'apellidos', 'dni', 'correo']}
+      searchableFields={['nombres_razonsocial', 'apellidos', 'dni_ruc', 'correo']}
       newLabel="Nuevo cliente"
     />
   )
