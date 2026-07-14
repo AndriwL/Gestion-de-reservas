@@ -3,20 +3,21 @@ import { FieldConfig } from '../../components/crud/types'
 
 const fields: FieldConfig[] = [
   {
-    name: 'cliente_id',
+    name: 'id_cliente',
     label: 'Cliente',
     type: 'relation',
     required: true,
-    relation: { table: 'clientes', labelFields: ['nombres', 'apellidos'] },
+    relation: { table: 'cliente', valueField: 'id_cliente', labelFields: ['nombres_razonsocial', 'apellidos'] },
   },
   {
-    name: 'cotizacion_id',
+    name: 'id_cotizacion',
     label: 'Cotización de origen',
     type: 'relation',
-    relation: { table: 'cotizaciones', labelFields: ['id'] },
+    relation: { table: 'cotizacion', valueField: 'id_cotizacion', labelFields: ['id_cotizacion'] },
     showInTable: false,
   },
-  { name: 'fecha', label: 'Fecha', type: 'date', required: true },
+  { name: 'fecha_reserva', label: 'Fecha de reserva', type: 'date', required: true },
+  { name: 'fecha_viaje', label: 'Fecha de viaje', type: 'date', required: true },
   { name: 'hora_salida', label: 'Hora de salida', type: 'time', required: true },
   { name: 'hora_retorno', label: 'Hora de retorno', type: 'time' },
   { name: 'punto_recojo', label: 'Punto de recojo', type: 'text', required: true, wide: true },
@@ -45,7 +46,8 @@ export default function ReservasPage() {
     <EntityCrudPage
       title="Reservas"
       description="Crea, modifica, cancela y consulta reservas. Cada una se relaciona con un cliente, una cotización, un servicio y un pago."
-      tableName="reservas"
+      tableName="reserva"
+      primaryKey="id_reserva"
       fields={fields}
       orderBy={{ column: 'created_at', ascending: false }}
       searchPlaceholder="Buscar por punto de recojo…"

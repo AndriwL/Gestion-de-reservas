@@ -5,7 +5,7 @@ import { FieldConfig, FieldOption } from './types'
 /**
  * Carga en paralelo las opciones de todos los campos tipo "relation" de un
  * formulario, para poblar los <select> que referencian otras tablas
- * (ej. reserva -> cliente, servicio -> conductor, etc.)
+ * (ej. reserva -> cliente, servicio -> conductor, etc.).
  */
 export function useRelationOptions(fields: FieldConfig[]) {
   const [optionsByField, setOptionsByField] = useState<Record<string, FieldOption[]>>({})

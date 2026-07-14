@@ -3,7 +3,7 @@ import type { Session } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabaseClient'
 
 interface AdminProfile {
-  id: string
+  id_administrador: string
   nombres: string
   apellidos: string
   correo: string
@@ -51,9 +51,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   async function loadAdminProfile(userId: string) {
     setLoading(true)
     const { data, error: profileError } = await supabase
-      .from('administradores')
-      .select('id, nombres, apellidos, correo')
-      .eq('id', userId)
+      .from('administrador')
+      .select('id_administrador, nombres, apellidos, correo')
+      .eq('id_administrador', userId)
       .maybeSingle()
 
     if (profileError) {

@@ -3,23 +3,23 @@ import { FieldConfig } from '../../components/crud/types'
 
 const fields: FieldConfig[] = [
   {
-    name: 'reserva_id',
+    name: 'id_reserva',
     label: 'Reserva',
     type: 'relation',
     required: true,
-    relation: { table: 'reservas', labelFields: ['punto_recojo', 'fecha'] },
+    relation: { table: 'reserva', valueField: 'id_reserva', labelFields: ['punto_recojo', 'fecha_viaje'] },
   },
   {
-    name: 'conductor_id',
+    name: 'id_conductor',
     label: 'Conductor',
     type: 'relation',
-    relation: { table: 'conductores', labelFields: ['nombres', 'apellidos'], filterColumn: 'estado', filterValue: 'activo' },
+    relation: { table: 'conductor', valueField: 'id_conductor', labelFields: ['nombres', 'apellidos'], filterColumn: 'estado', filterValue: 'activo' },
   },
   {
-    name: 'vehiculo_id',
+    name: 'id_vehiculo',
     label: 'Vehículo',
     type: 'relation',
-    relation: { table: 'vehiculos', labelFields: ['placa', 'modelo'] },
+    relation: { table: 'vehiculo', valueField: 'id_vehiculo', labelFields: ['placa', 'modelo'] },
   },
   { name: 'fecha_ejecucion', label: 'Fecha de ejecución', type: 'date', required: true },
   {
@@ -43,7 +43,8 @@ export default function ServiciosPage() {
     <EntityCrudPage
       title="Servicios"
       description="Representa el viaje que se ejecuta: asigna conductor y vehículo, cambia el estado e inicia o finaliza el servicio."
-      tableName="servicios"
+      tableName="servicio"
+      primaryKey="id_servicio"
       fields={fields}
       orderBy={{ column: 'created_at', ascending: false }}
       searchPlaceholder="Buscar…"
