@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper text-ink-800 font-body antialiased;
+}
+
+* {
+  @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber;
+}
+
+::selection {
+  @apply bg-amber-light text-ink-900;
+}
+
+/* Línea de ruta punteada — elemento firma de la interfaz */
+.route-line {
+  height: 2px;
+  background-image: repeating-linear-gradient(90deg, currentColor 0 6px, transparent 6px 14px);
+}
+
+.waypoint {
+  @apply relative;
+}
+.waypoint::before {
+  content: '';
+  @apply absolute -left-[5px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-current;
+}
+
+/* Scrollbar discreto */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-ink-200 rounded-full;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
