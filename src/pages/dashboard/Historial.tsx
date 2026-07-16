@@ -76,7 +76,7 @@ export function Historial() {
       <div>
         <div className="flex items-center gap-2">
           <h1 className="font-display text-2xl font-extrabold text-ink-950">Historial</h1>
-          <span className="rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-semibold text-teal-600">CU-10</span>
+          
         </div>
         <p className="mt-1 text-sm text-slate-500">Consulta el detalle completo de servicios pasados.</p>
       </div>

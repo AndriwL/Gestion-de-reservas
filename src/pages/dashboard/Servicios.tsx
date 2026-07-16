@@ -152,9 +152,6 @@ export function Servicios() {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="font-display text-2xl font-extrabold text-ink-950">Servicios</h1>
-            <span className="rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-semibold text-teal-600">
-              CU-05 · CU-06 · CU-07 · CU-08
-            </span>
           </div>
           <p className="mt-1 text-sm text-slate-500">
             Asigna vehículo y conductor a una reserva confirmada, y da seguimiento al viaje.

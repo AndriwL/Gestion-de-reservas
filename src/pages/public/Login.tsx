@@ -7,7 +7,7 @@ const features = [
   { icon: CalendarCheck, label: 'Reservas' },
   { icon: Users, label: 'Clientes' },
   { icon: Truck, label: 'Unidades' },
-  { icon: Building2, label: 'Rutas' },
+  { icon: Building2, label: 'pagos' },
 ]
 
 export function Login() {
@@ -54,14 +54,12 @@ export function Login() {
         <div className="absolute inset-0 bg-gradient-to-b from-ink-950/70 via-ink-950/80 to-ink-950" />
         <div className="relative flex h-full flex-col justify-between p-12">
           <div>
-            <div className="mb-14 flex items-center gap-3">
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-teal-500 font-display text-lg font-extrabold text-ink-950">
-                G
-              </span>
+            <div className="mb-10 flex items-center gap-3">
+              <img className="w-40 h-auto max-w-full" src="/public/logo-sf.png" alt="Descripción de la imagen"/>
               <span className="leading-tight">
                 <span className="block font-display font-extrabold text-white">GAL</span>
                 <span className="block text-[11px] uppercase tracking-wide text-slate-400">
-                  Transporte Turístico
+                  Turísmo Y Transporte
                 </span>
               </span>
             </div>
@@ -98,12 +96,6 @@ export function Login() {
       {/* Panel derecho */}
       <div className="flex items-center justify-center bg-white px-6 py-16">
         <div className="w-full max-w-sm">
-          <Link
-            to="/"
-            className="mb-10 inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-ink-950"
-          >
-            <ArrowLeft size={16} /> Volver al sitio
-          </Link>
 
           <h2 className="font-display text-2xl font-extrabold text-ink-950">Iniciar sesión</h2>
           <p className="mt-1 text-sm text-slate-500">
@@ -173,13 +165,6 @@ export function Login() {
             </button>
           </form>
 
-          <div className="mt-6 rounded-lg bg-teal-50 px-4 py-3 text-xs text-ink-900">
-            <p className="mb-1 font-semibold uppercase tracking-wide text-teal-700">
-              Credenciales de prueba
-            </p>
-            <p>admin@gal.com</p>
-            <p>admin123</p>
-          </div>
         </div>
       </div>
     </div>

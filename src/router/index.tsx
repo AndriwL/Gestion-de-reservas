@@ -1,7 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { PublicLayout } from '@/layouts/PublicLayout'
 import { DashboardLayout } from '@/layouts/DashboardLayout'
-import { Home } from '@/pages/public/Home'
 import { Login } from '@/pages/public/Login'
 import { Inicio } from '@/pages/dashboard/Inicio'
 import { Calendario } from '@/pages/dashboard/Calendario'
@@ -15,10 +13,7 @@ import { Historial } from '@/pages/dashboard/Historial'
 import { Perfil } from '@/pages/dashboard/Perfil'
 
 export const router = createBrowserRouter([
-  {
-    element: <PublicLayout />,
-    children: [{ path: '/', element: <Home /> }],
-  },
+  { path: '/', element: <Login /> },
   { path: '/login', element: <Login /> },
   {
     path: '/dashboard',
