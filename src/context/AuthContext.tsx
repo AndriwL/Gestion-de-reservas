@@ -1,92 +1,50 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import type { Session } from '@supabase/supabase-js'
-import { supabase } from '../lib/supabaseClient'
-
-interface AdminProfile {
-  id_administrador: string
-  nombres: string
-  apellidos: string
-  correo: string
-}
+import { supabase } from '@/lib/supabase'
 
 interface AuthContextValue {
   session: Session | null
-  admin: AdminProfile | null
   loading: boolean
-  error: string | null
-  signIn: (usuario: string, password: string) => Promise<{ ok: boolean; message?: string }>
+  signIn: (correo: string, password: string) => Promise<{ error: string | null }>
   signOut: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined)
 
-// El sistema está diseñado para una única cuenta administradora.
-// El acceso se hace por correo + contraseña contra Supabase Auth; no existe
-// pantalla de registro público en ninguna parte de la aplicación.
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
-  const [admin, setAdmin] = useState<AdminProfile | null>(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session)
-      if (data.session) void loadAdminProfile(data.session.user.id)
-      else setLoading(false)
+      setLoading(false)
     })
 
     const { data: listener } = supabase.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession)
-      if (newSession) void loadAdminProfile(newSession.user.id)
-      else {
-        setAdmin(null)
-        setLoading(false)
-      }
     })
 
     return () => listener.subscription.unsubscribe()
   }, [])
 
-  async function loadAdminProfile(userId: string) {
-    setLoading(true)
-    const { data, error: profileError } = await supabase
-      .from('administrador')
-      .select('id_administrador, nombres, apellidos, correo')
-      .eq('id_administrador', userId)
-      .maybeSingle()
-
-    if (profileError) {
-      setError(profileError.message)
-    } else if (data) {
-      setAdmin(data)
+  async function signIn(correo: string, password: string) {
+    const { error } = await supabase.auth.signInWithPassword({ email: correo, password })
+    if (error) {
+      if (error.message.toLowerCase().includes('invalid login credentials')) {
+        return { error: 'Correo o contraseña incorrectos.' }
+      }
+      return { error: error.message }
     }
-    setLoading(false)
-  }
-
-  async function signIn(usuario: string, password: string) {
-    setError(null)
-    // El campo "usuario" acepta el correo registrado del administrador único.
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email: usuario,
-      password,
-    })
-    if (signInError) {
-      const message = 'Usuario o contraseña incorrectos.'
-      setError(message)
-      return { ok: false, message }
-    }
-    return { ok: true }
+    return { error: null }
   }
 
   async function signOut() {
     await supabase.auth.signOut()
-    setAdmin(null)
-    setSession(null)
   }
 
   return (
-    <AuthContext.Provider value={{ session, admin, loading, error, signIn, signOut }}>
+    <AuthContext.Provider value={{ session, loading, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   )
@@ -94,6 +52,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth() {
   const ctx = useContext(AuthContext)
-  if (!ctx) throw new Error('useAuth debe usarse dentro de <AuthProvider>')
+  if (!ctx) throw new Error('useAuth debe usarse dentro de AuthProvider')
   return ctx
 }
