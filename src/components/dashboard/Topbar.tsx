@@ -26,10 +26,10 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
   const nombreMostrado = nombre || session?.user.email || 'Usuario'
 
   return (
-    <header className="flex h-16 items-center justify-between border-b border-slate-100 bg-white px-4 md:px-8">
+    <header className="flex h-[4.5rem] items-center justify-between border-b border-slate-100 bg-white/90 px-4 backdrop-blur-xl md:px-8">
       <button
         onClick={onMenuClick}
-        className="grid h-9 w-9 place-items-center rounded-lg text-slate-500 hover:bg-slate-100 md:hidden"
+        className="grid h-10 w-10 place-items-center rounded-xl text-slate-500 transition-colors hover:bg-teal-50 hover:text-teal-600 md:hidden"
         aria-label="Abrir menú"
       >
         <Menu size={20} />
@@ -44,7 +44,7 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
       <div className="flex items-center gap-4">
 
         <div className="flex items-center gap-3">
-          <div className="grid h-9 w-9 place-items-center rounded-full bg-ink-950 text-sm font-semibold text-white">
+          <div className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 text-sm font-semibold text-ink-950 shadow-lg shadow-cyan-500/20">
             {nombreMostrado.slice(0, 1).toUpperCase()}
           </div>
           <div className="hidden leading-tight md:block">

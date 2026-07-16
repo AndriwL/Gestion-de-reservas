@@ -44,10 +44,10 @@ export function DashboardLayout() {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar onMenuClick={() => setMobileOpen(true)} />
-        <main className="flex-1 overflow-y-auto p-4 md:p-8">
+        <main className="flex-1 overflow-y-auto p-5 md:p-8">
           <Outlet />
         </main>
-        <footer className="border-t border-slate-100 bg-white px-8 py-4 text-center text-xs text-slate-400">
+        <footer className="border-t border-slate-100 bg-white/80 px-8 py-4 text-center text-xs text-slate-400 backdrop-blur">
           © {new Date().getFullYear()} Transportes GAL — Panel administrativo
         </footer>
       </div>
