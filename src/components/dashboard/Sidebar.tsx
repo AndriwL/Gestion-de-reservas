@@ -32,14 +32,8 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <aside className="flex h-full w-64 flex-col bg-ink-950 text-slate-300">
-      <div className="flex items-center gap-3 px-6 py-6">
-        <span className="grid h-9 w-9 place-items-center rounded-lg bg-teal-500 font-display text-lg font-extrabold text-ink-950">
-          G
-        </span>
-        <span className="leading-tight">
-          <span className="block font-display font-extrabold text-white">GAL</span>
-          <span className="block text-[11px] uppercase tracking-wide text-slate-500">Panel</span>
-        </span>
+      <div className="flex justify-center items-center gap-3 px-6 py-6">
+        <img className="w-40 h-auto max-w-full" src="/public/logo-sf.png" alt="Descripción de la imagen"/>
       </div>
 
       <nav className="flex-1 space-y-1 overflow-y-auto px-3">
@@ -64,12 +58,6 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       </nav>
 
       <div className="space-y-1 border-t border-white/10 px-3 py-4">
-        <NavLink
-          to="/"
-          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-white"
-        >
-          <ArrowLeftCircle size={18} /> Volver al sitio web
-        </NavLink>
         <button
           onClick={() => signOut()}
           className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-rose-400 hover:bg-rose-500/10"

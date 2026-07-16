@@ -124,7 +124,7 @@ export function Clientes() {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="font-display text-2xl font-extrabold text-ink-950">Clientes</h1>
-            <span className="rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-semibold text-teal-600">CU-01</span>
+
           </div>
           <p className="mt-1 text-sm text-slate-500">Administra los clientes registrados en el sistema.</p>
         </div>
