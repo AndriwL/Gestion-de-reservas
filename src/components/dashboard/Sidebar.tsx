@@ -31,8 +31,8 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const { signOut } = useAuth()
 
   return (
-    <aside className="flex h-full w-64 flex-col bg-ink-950 text-slate-300">
-      <div className="flex justify-center items-center gap-3 px-6 py-6">
+    <aside className="flex h-full w-64 flex-col border-r border-white/10 bg-ink-950 text-slate-300 shadow-[8px_0_28px_rgba(14,37,48,0.12)]">
+      <div className="flex justify-center items-center gap-3 border-b border-white/10 px-6 py-7">
         <img className="w-40 h-auto max-w-full" src="/public/logo-sf.png" alt="Descripción de la imagen"/>
       </div>
 
@@ -44,10 +44,10 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
             end={item.end}
             onClick={onNavigate}
             className={({ isActive }) =>
-              `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+              `flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200 ${
                 isActive
-                  ? 'bg-teal-500/10 text-teal-400'
-                  : 'text-slate-400 hover:bg-white/5 hover:text-white'
+                  ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-ink-950 shadow-lg shadow-cyan-950/20'
+                  : 'text-slate-300 hover:translate-x-0.5 hover:bg-cyan-400/10 hover:text-white'
               }`
             }
           >
@@ -60,7 +60,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       <div className="space-y-1 border-t border-white/10 px-3 py-4">
         <button
           onClick={() => signOut()}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-rose-400 hover:bg-rose-500/10"
+          className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-rose-400 transition-colors hover:bg-rose-500/10"
         >
           <LogOut size={18} /> Cerrar sesión
         </button>
